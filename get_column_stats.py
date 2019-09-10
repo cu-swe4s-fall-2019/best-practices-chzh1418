@@ -26,13 +26,11 @@ except FileNotFoundError:
     print('Could not find ' + file_name)
 except PermissionError:
     print('Could not open ' + file_name)
-finally:
-    return f
+
 
 V = []
-
-for l in f:
-    A = [int(x) for x in l.split()]
+for line in f.readlines():
+    A = [int(x) for x in line.split()]
     try:
         V.append(A[col_num])
     except IndexError:
@@ -40,9 +38,11 @@ for l in f:
     except ValueError:
         print('Error value')
 
-mean = sum(V)/len(V)
-
-stdev = math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
+try:
+    mean = sum(V)/len(V)
+    stdev = math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
+except ZeroDivisionError:
+    print('Length of column is zero, somthing is wrong')
 
 print('mean:', mean)
 print('stdev:', stdev)
