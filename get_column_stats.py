@@ -1,7 +1,7 @@
 import sys
 import math
 import argparse
-
+# parsing arguments
 parser = argparse.ArgumentParser(
             description='Pass Parameters')
 
@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 file_name = args.file_name
 col_num = args.col_num
-
+# open file and test exceptions
 f = None
 try:
     f = open(file_name, 'r')
@@ -27,7 +27,7 @@ except FileNotFoundError:
 except PermissionError:
     print('Could not open ' + file_name)
 
-
+# readlines in the file and then split intergers in line then append
 V = []
 for line in f.readlines():
     A = [int(x) for x in line.split()]
