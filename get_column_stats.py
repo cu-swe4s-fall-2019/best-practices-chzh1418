@@ -2,9 +2,6 @@ import sys
 import math
 import argparse
 
-file_name = sys.argv[1]
-col_num = int(sys.argv[2])
-
 parser = argparse.ArgumentParser(
             description='Pass Parameters')
 
@@ -19,13 +16,29 @@ parser.add_argument('--col_num',
 
 args = parser.parse_args()
 
-f = open(args.file_name, 'r')
+file_name = args.file_name
+col_num = args.col_num
+
+f = None
+try:
+    f = open(file_name, 'r')
+except FileNotFoundError:
+    print('Could not find ' + file_name)
+except PermissionError:
+    print('Could not open ' + file_name)
+finally:
+    return f
 
 V = []
 
 for l in f:
     A = [int(x) for x in l.split()]
-    V.append(A[args.col_num])
+    try:
+        V.append(A[col_num])
+    except IndexError:
+        print('Index out of range')
+    except ValueError:
+        print('Error value')
 
 mean = sum(V)/len(V)
 
