@@ -1,19 +1,48 @@
-import sys, math
+import sys
+import math
+import argparse
 
-file_name = sys.argv[1]
-col_num = int(sys.argv[2])
+parser = argparse.ArgumentParser(
+            description='Pass Parameters')
 
-f = open(file_name, 'r')
+parser.add_argument('--file_name',
+                    type=str,
+                    help='Name of the file',
+                    required=True)
+parser.add_argument('--col_num',
+                    type=int,
+                    help='Number of column',
+                    required=True)
+
+args = parser.parse_args()
+
+file_name = args.file_name
+col_num = args.col_num
+
+f = None
+try:
+    f = open(file_name, 'r')
+except FileNotFoundError:
+    print('Could not find ' + file_name)
+except PermissionError:
+    print('Could not open ' + file_name)
+
 
 V = []
+for line in f.readlines():
+    A = [int(x) for x in line.split()]
+    try:
+        V.append(A[col_num])
+    except IndexError:
+        print('Index out of range')
+    except ValueError:
+        print('Error value')
 
-for l in f:
-    A = [int(x) for x in l.split()]
-    V.append(A[col_num])
-
-mean = sum(V)/len(V)
-
-stdev = math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
+try:
+    mean = sum(V)/len(V)
+    stdev = math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
+except ZeroDivisionError:
+    print('Length of column is zero, somthing is wrong')
 
 print('mean:', mean)
 print('stdev:', stdev)
