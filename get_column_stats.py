@@ -2,22 +2,25 @@ import sys
 import math
 import argparse
 # parsing arguments
-parser = argparse.ArgumentParser(
+
+
+def arguments():
+    parser = argparse.ArgumentParser(
             description='Pass Parameters')
 
-parser.add_argument('--file_name',
-                    type=str,
-                    help='Name of the file',
-                    required=True)
-parser.add_argument('--col_num',
-                    type=int,
-                    help='Number of column',
-                    required=True)
+    parser.add_argument('--file_name',
+                        type=str,
+                        help='Name of the file',
+                        required=True)
+    parser.add_argument('--col_num',
+                        type=int,
+                        help='Number of column',
+                        required=True)
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-file_name = args.file_name
-col_num = args.col_num
+    file_name = args.file_name
+    col_num = args.col_num
 
 
 def get_mean(V):
@@ -32,7 +35,7 @@ def get_stdev(V):
 
 
 if __name__ == "__main__":
-
+    args = arguments()
     try:
         file = open(args.file_name, 'r')
     except FileNotFoundError as error:
