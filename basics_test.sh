@@ -1,26 +1,31 @@
-pycodestyle style.py
+#!/bin/bash
 
-pycodestyle get_column_stats.py
+test -e ssshtest || wget -q https://raw.githubusercontent.com/ryanlayer/ssshtest/master/ssshtest
+. ssshtest
 
-(for i in $(seq 1 100):
-    do
-    echo -e "$RANDOM\t$RANDOM\t$RANDOM\t$RANDOM\t$RANDOM"
-    done) > data.txt
+run test_style pycodestyle style.py
+assert_no_stdout
 
-python get_column_stats.py --file_name data.txt --col_num 2
 
-V=1
-(for i in $(seq 1 100):
-    do
-    echo -e "$V\t$V\t$V\t$V\t$V"
-    done) > data.txt
+run test_get_column_stats pycodestyle get_column_stats.py
+assert_no_stdout
 
-python get_column_stats.py --file_name data.txt --col_num 2
+run test_basics_test pycodestyle basics_test.py
+assert_no_stdout
 
-V=4
-(for i in $(seq 1 100):
-    do
-    echo -e "$V\t$V\t$V\t$V\t$V"
-    done) > data.txt
+run wrong_file_name python get_column_stats.py --file_name=bad_file_name.txt --col_num=2
+assert_in_stdout 'FileNotFoundError:'
+assert_exit_code 1
 
-python get_column_stats.py --file_name data.txt --col_num 3
+run Neg_col_num python get_column_stats.py --file_name=data.txt --col_num=-1
+assert_in_stderr 'IndexError:'
+assert_stderr
+
+run col_num_wrong python get_column_stats.py --file_name=data.txt --col_num=1000
+assert_in_stdout 'IndexError:'
+assert_exit_code 2
+
+run Test_Good_testcase python get_column_stats.py --file_name=data.txt --col_num=3
+assert_exit_code 0
+
+
