@@ -16,3 +16,7 @@
 
 ## Task4
 *Update the README.md file
+
+*For assignment2, I was out for a conference and could not figure out task2.
+
+
