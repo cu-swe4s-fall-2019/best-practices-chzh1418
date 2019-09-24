@@ -1,41 +1,34 @@
 import unittest
-import get_column_stats
+import get_column_stats as gcs
 import random
 import os
 import math
+import statistics
 
 
 class TestGetColumnStats(unittest.TestCase):
-    def setUp(self):
-        self.testcase1 = [1, 1, 1]
+    def test_mean_cst(self):
+        V = list(range(100))
+        self.assertEqual(gcs.get_mean(V), statistics.mean(V))
 
-    def test_testcase1(self):
-        self.assertEqual(get_column_stats.get_mean(self.testcase1), 1)
+    def test_mean_random(self):
+        V = random.sample(range(1, 100), 3)
+        self.assertEqual(gcs.get_mean(V), statistics.mean(V))
 
-    @classmethod
-    def setUpClass(cls):
-        cls.class_test_file_name = 'class_setup_test_file.txt'
-        f = open(cls.class_test_file_name, 'w')
-        cls.vector = []
-        for i in range(1, 100):
-            rand_int = random.randint(1, 100)
-            cls.vector.append(rand_int)
-            f.write(str(rand_int) + '\n')
-        cls.mean = sum(cls.vector)/100
-        cls.sd = math.sqrt(sum([(cls.mean-x)**2 for x in cls.vector]) / 100)
-        f.close()
+    def test_mean_Input(self):
+        self.assertRaises(TypeError, gcs.get_mean, None)
+        self.assertRaises(TypeError, gcs.get_mean, 'Foo')
+        self.assertRaises(TypeError, gcs.get_mean, 1)
 
-    @classmethod
-    def tearDownClass(cls):
-        os.remove(cls.class_test_file_name)
+    def test_stdev_random(self):
+        V = random.sample(range(1, 100), 3)
+        self.assertAlmostEqual(gcs.get_stdev(V), statistics.stdev(V),
+                               places=-2)
 
-    def test_file_mean_class_setup(self):
-        file_mean = get_column_stats.get_mean(self.class_test_file_name)
-        self.assertEqual(file_mean, self.file_mean)
-
-    def test_file_stdev_class_setup(self):
-        file_stdev = get_column_stats.get_stdev(self.class_test_file_name)
-        self.assertEqual(file_stdev, self.file_stdev)
+    def test_stdev_Input(self):
+        self.assertRaises(TypeError, gcs.get_stdev, None)
+        self.assertRaises(TypeError, gcs.get_stdev, 'Foo')
+        self.assertRaises(TypeError, gcs.get_stdev, 1)
 
 
 if __name__ == '__main__':
