@@ -6,6 +6,7 @@ import math
 import statistics
 import numpy as np
 
+
 class TestGetColumnStats(unittest.TestCase):
     def test_mean(self):
         V = list(range(100))
