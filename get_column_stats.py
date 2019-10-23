@@ -5,6 +5,14 @@ import argparse
 
 # Define function to calculate mean of a vector
 def get_mean(V):
+    """ Get mean of a vector
+    Argument
+    --------
+        V: vector consist of numbers
+    Return
+    --------
+        mean: mean of the vector
+    """
     if len(V) == 0:
         raise ValueError('get_mean, empty input')
         sys.exit(1)
@@ -14,6 +22,14 @@ def get_mean(V):
 
 # Define functions to calculate standard deviation of a vector
 def get_stdev(V):
+    """ Get standard deviation of a vector
+    Argument
+    --------
+        V: a vector consists of numbers
+    Return
+    --------
+        stdev: the standard deviation of the vector
+    """
     if len(V) == 0:
         raise ValueError('get_stdev, empty input')
         sys.exit(1)
