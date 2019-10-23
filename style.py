@@ -23,7 +23,7 @@ def throw(): raise Exception('threw')
 def oops(): print('oops')
 
 
-def FindSum(var_one, var_two, var_three,
+def findsum(var_one, var_two, var_three,
             var_four):
     s = (var_one +
          var_two +
