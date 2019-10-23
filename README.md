@@ -20,22 +20,22 @@ python basics_test.py
 `
 ## Continuous integration
 Modify the .travis.yml file to run continuous integration
-    * wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    * bash Miniconda3-latest-Linux-x86_64.sh -b
-    * . /home/travis/miniconda3/etc/profile.d/conda.sh
-    * conda update --yes conda
-    * conda config --add channels r
-    * conda create --yes -n test
-    * conda activate test
-    * conda install -y pycodestyle
-    * conda install --yes python=3.6
-    * conda install -y numpy 
+* wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+* bash Miniconda3-latest-Linux-x86_64.sh -b
+* . /home/travis/miniconda3/etc/profile.d/conda.sh
+* conda update --yes conda
+* conda config --add channels r
+* conda create --yes -n test
+* conda activate test
+* conda install -y pycodestyle
+* conda install --yes python=3.6
+* conda install -y numpy 
 script:
-    * bash basics_test.sh
-    * python basics_test.py
-    * pycodestyle get_column_stats.py
-    * pycodestyle basics_test.py
-    * pycodestyle style.py
+* bash basics_test.sh
+* python basics_test.py
+* pycodestyle get_column_stats.py
+* pycodestyle basics_test.py
+* pycodestyle style.py
 
 ## Functional test and unit test
 * For functional test, use bash script to generate new data.txt file with both constant and random value.
