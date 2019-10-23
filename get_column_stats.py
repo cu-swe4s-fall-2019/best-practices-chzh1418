@@ -34,7 +34,7 @@ def get_stdev(V):
         raise ValueError('get_stdev, empty input')
         sys.exit(1)
     mean = get_mean(V)
-    stdev = math.sqrt(sum([(mean - x)**2 for x in V]))
+    stdev = math.sqrt(sum([(mean - x)**2 for x in V])/len(V))
     return stdev
 
 
